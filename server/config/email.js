@@ -1,24 +1,11 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-transporter.verify((err) => {
-  if (err) console.error('❌ Email service error:', err.message);
-  else console.log('✅ Email service ready');
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendVerificationEmail = async (to, name, code) => {
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || 'HNU Marketplace <noreply@hnu.edu.ph>',
+  const { error } = await resend.emails.send({
+    from: process.env.SMTP_FROM || 'HNU Marketplace <onboarding@resend.dev>',
     to,
     subject: `${code} is your HNU Marketplace verification code`,
     html: `
@@ -63,12 +50,15 @@ const sendVerificationEmail = async (to, name, code) => {
       </html>
     `,
   });
+
+  if (error) throw new Error(`Email service error: ${error.message}`);
 };
 
 const sendPasswordResetEmail = async (to, name, token) => {
   const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || 'HNU Marketplace <noreply@hnu.edu.ph>',
+
+  const { error } = await resend.emails.send({
+    from: process.env.SMTP_FROM || 'HNU Marketplace <onboarding@resend.dev>',
     to,
     subject: '🔐 Reset your HNU Marketplace password',
     html: `
@@ -103,6 +93,8 @@ const sendPasswordResetEmail = async (to, name, token) => {
       </html>
     `,
   });
+
+  if (error) throw new Error(`Email service error: ${error.message}`);
 };
 
 module.exports = { sendVerificationEmail, sendPasswordResetEmail };

@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0faf4;
+    color: #111;
+  }
+  h1, h2, h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#00ab41] hover:bg-[#00c94e] text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200 active:scale-95;
+  }
+  .btn-accent {
+    @apply bg-[#00ab41] hover:bg-[#00c94e] text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200 active:scale-95;
+  }
+  .btn-outline {
+    @apply border-2 border-[#00ab41] text-[#00ab41] hover:bg-[#00ab41] hover:text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow duration-200;
+  }
+  .input {
+    @apply w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00ab41]/30 focus:border-[#00ab41] transition-all bg-white;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full;
+  }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0faf4; }
+::-webkit-scrollbar-thumb { background: #b2d5bf; border-radius: 3px; }
+
+.page-enter { animation: fadeUp 0.25s ease forwards; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

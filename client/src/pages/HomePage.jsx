@@ -201,6 +201,15 @@ export default function HomePage() {
           </div>
         )}
 
+        {/* ══ BANNER ══ */}
+        <div className="rounded-2xl overflow-hidden border border-black/8 shadow-sm">
+          <img
+            src="/assets/banner.png"
+            alt="Your Campus Essential All in One Place"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+
         {/* ══ CATEGORIES ══ */}
         <div className="bg-white border border-black/8 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
@@ -272,7 +281,7 @@ export default function HomePage() {
               </div>
             ) : products.length === 0 ? (
               <div className="text-center py-20">
-                <p className="text-5xl mb-3">🛍️</p>
+                <p className="text-5xl mb-3"></p>
                 <p className="text-gray-500 font-semibold text-sm">No items found</p>
                 <p className="text-gray-400 text-xs mt-1">Try a different search or category</p>
               </div>
